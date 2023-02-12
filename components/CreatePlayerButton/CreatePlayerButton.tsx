@@ -92,7 +92,9 @@ const CreatePlayerButton = ({
   };
 
   return (
-    <Button disabled={loading} text="Create Player &rarr;" onClick={onClick} />
+    <Button disabled={loading} onClick={onClick}>
+      Create Player &rarr;
+    </Button>
   );
 };
 

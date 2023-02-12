@@ -93,7 +93,9 @@ const MintButton = ({ metadata, setDeploymentStep }: any) => {
   };
 
   return (
-    <Button disabled={loading} onClick={onClick} text="Mint Player &rarr;" />
+    <Button disabled={loading} onClick={onClick}>
+      Mint Player &rarr;
+    </Button>
   );
 };
 

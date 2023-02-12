@@ -1,44 +1,35 @@
 import type { NextPage } from "next";
 import styles from "../../styles/Home.module.css";
 import SeoHead from "../SeoHead";
-import PlayerCreateForm from "../PlayerCreateForm";
-import TxScreen from "../TxScreen";
 import Footer from "../Footer";
-import { useState } from "react";
-import MintingForm from "../MintingForm";
-import { useNetwork } from "wagmi";
+import Button from "../Button";
+import { Magic } from "magic-sdk";
+import { ConnectExtension } from "@magic-ext/connect";
+// import magic from "../../lib/magic";
 
 const PlayerCreatePage: NextPage = () => {
-  const [metadata, setMetadata] = useState();
-  const [deploymentStep, setDeploymentStep] = useState(0);
-  const { chain } = useNetwork();
+  const onClick = async () => {
+    const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_API_KEY as string, {
+      extensions: [new ConnectExtension()],
+      network: "goerli",
+    });
+
+    console.log("MAGIC", magic);
+    const email = await magic.auth.loginWithMagicLink({
+      email: "sweetmantech@gmail.com",
+    });
+
+    console.log("email", email);
+    const user = await magic.user.getMetadata();
+    console.log("user", user);
+    const { publicAddress } = user;
+    console.log("publicAddress", publicAddress);
+  };
 
   return (
     <div className={`${styles.container}`}>
       <SeoHead />
-      {deploymentStep > 0 ? (
-        <TxScreen
-          step={deploymentStep}
-          chainName={chain?.name}
-          titleText={metadata ? "Deploying" : "Creating Player"}
-          hideUpload={false}
-        />
-      ) : (
-        <>
-          {metadata ? (
-            <MintingForm
-              metadata={metadata}
-              setDeploymentStep={setDeploymentStep}
-            />
-          ) : (
-            <PlayerCreateForm
-              setMetadata={setMetadata}
-              setDeploymentStep={setDeploymentStep}
-            />
-          )}
-        </>
-      )}
-
+      <Button onClick={onClick}>hello </Button>
       <Footer />
     </div>
   );
