@@ -14,7 +14,7 @@ const LaunchPage = (props: any) => {
           <div className="space-y-4">
             <h3>Application NFTs</h3>
             <h1 className="pb-4">
-              Decent Full Audio<br></br> Player
+              Decent Email + Fiat<br></br> Payments
             </h1>
             <Button onClick={onClick}>Create yours</Button>
           </div>
