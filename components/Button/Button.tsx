@@ -1,4 +1,4 @@
-const Button = ({ text, onClick, disabled = false }: any) => {
+const Button = ({ children, onClick, disabled = false }: any) => {
   return (
     <button
       type="button"
@@ -6,7 +6,7 @@ const Button = ({ text, onClick, disabled = false }: any) => {
       className="bg-black text-white py-2 px-8 rounded-full hover:bg-opacity-80"
       disabled={disabled}
     >
-      {text}
+      {children}
     </button>
   );
 };
