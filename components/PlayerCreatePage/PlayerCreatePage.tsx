@@ -4,13 +4,11 @@ import SeoHead from "../SeoHead";
 import Footer from "../Footer";
 import Button from "../Button";
 import { Magic } from "magic-sdk";
-import { ConnectExtension } from "@magic-ext/connect";
 // import magic from "../../lib/magic";
 
 const PlayerCreatePage: NextPage = () => {
   const onClick = async () => {
     const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_API_KEY as string, {
-      extensions: [new ConnectExtension()],
       network: "goerli",
     });
 
