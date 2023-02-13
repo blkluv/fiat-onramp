@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import getMagicUser from "../../lib/checkMagicLogin";
 import shortenAddress from "../../lib/shortenAddress";
@@ -10,6 +11,9 @@ const MintingForm = () => {
       const user = await getMagicUser();
 
       setPublicKey(shortenAddress(user.publicAddress as string));
+
+      const { data } = await axios.get("/api/getContractInfo");
+      console.log("data", data);
     };
     init();
   }, []);
