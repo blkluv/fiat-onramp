@@ -1,3 +1,4 @@
+import { CrossmintPayButton } from "@crossmint/client-sdk-react-ui";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import getMagicUser from "../../lib/checkMagicLogin";
@@ -10,7 +11,7 @@ const MintingForm = () => {
     const init = async () => {
       const user = await getMagicUser();
 
-      setPublicKey(shortenAddress(user.publicAddress as string));
+      setPublicKey(user.publicAddress as string);
 
       const { data } = await axios.get("/api/getContractInfo");
       console.log("data", data);
@@ -32,10 +33,21 @@ const MintingForm = () => {
         </div>
         <div className="flex flex-wrap items-center">
           <div className="space-y-8">
-            Public Key: {publicKey}
+            Public Key: {shortenAddress(publicKey as string)}
             <p>Price: </p>
           </div>
         </div>
+        <CrossmintPayButton
+          clientId="d3740edd-19b6-4cef-9128-e2c04dda3109"
+          environment="staging"
+          mintTo={publicKey}
+          mintConfig={{
+            type: "erc-721",
+            totalPrice: "0.001",
+            _quantity: 1,
+            // Append here any custom arguments, if any, for your smart contract minting function
+          }}
+        />
       </div>
     </main>
   );
