@@ -2,7 +2,7 @@ import Image from "next/image";
 import { DeployBackground } from "../DeployingContract/DeployBackground";
 import ProgressModal, { PlayerDeployProgressModal } from "../ProgressModal";
 
-const TxScreen = ({ step, chainName, titleText, hideUpload }) => (
+const TxScreen = ({ step, chainName, titleText, hideUpload }: any) => (
   <div className="absolute inset-0">
     <DeployBackground text={titleText} />
     <div className="relative pt-12 lg:mx-16 mx-10 mb-28 mt-16">

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import shortenAddress from "../../lib/shortenAddress";
 import DeployWrapperButton from "../DeployWrapperButton";
 
-const MintingForm = ({ publicKey }: any) => {
+const MintingForm = ({ publicKey, setDeploymentStep }: any) => {
   useEffect(() => {
     const init = async () => {
       const { data } = await axios.get("/api/getContractInfo");
@@ -33,7 +33,7 @@ const MintingForm = ({ publicKey }: any) => {
           </div>
         </div>
 
-        <DeployWrapperButton />
+        <DeployWrapperButton setDeploymentStep={setDeploymentStep} />
       </div>
     </main>
   );
