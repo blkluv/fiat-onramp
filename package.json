@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@crossmint/client-sdk-react-ui": "^0.2.1-alpha.0",
     "@decent.xyz/sdk": "^0.2.0",
     "@decent.xyz/ux-components": "^1.0.7",
     "@hookform/error-message": "^2.0.0",
@@ -16,6 +17,7 @@
     "@rainbow-me/rainbowkit": "^0.7.0",
     "axios": "^1.2.5",
     "ethers": "^5.0.0",
+    "magic-sdk": "^13.2.0",
     "next": "^13.0.0",
     "nft.storage": "^7.0.0",
     "react": "^18.2.0",
