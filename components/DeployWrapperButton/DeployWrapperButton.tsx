@@ -15,7 +15,6 @@ const DeployWrapperButton = ({ setDeploymentStep }: any) => {
   const deployContract = async () => {
     try {
       setDeploymentStep(1);
-      console.log("deploy with bytecode", signer);
       const bytecode = getCreditCardWrapperBytecode();
       const factory = new ContractFactory(abi, bytecode, signer as Signer);
       setDeploymentStep(2);
@@ -24,8 +23,6 @@ const DeployWrapperButton = ({ setDeploymentStep }: any) => {
       const contract = await factory.deploy(wrappedContractAddress);
       setDeploymentStep(3);
 
-      console.log(contract.address);
-      console.log(contract.deployTransaction);
       await contract.deployTransaction.wait();
       setDeploymentStep(4);
       //   TODO: SUCCESS SCREEN REDIRECT
