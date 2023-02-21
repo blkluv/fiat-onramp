@@ -13,7 +13,7 @@ const LaunchPage = (props: any) => {
         <div className="flex items-center justify-center">
           <div className="space-y-4">
             <h3>Application NFTs</h3>
-            <h1 className="pb-4">Decent + Apple Pay</h1>
+            <h1 className="pb-4">Decent + Credit Cards</h1>
             <Button onClick={onClick}>Create yours</Button>
           </div>
         </div>
