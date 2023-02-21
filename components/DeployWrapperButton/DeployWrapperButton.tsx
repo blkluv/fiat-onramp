@@ -4,15 +4,12 @@ import { useState } from "react";
 import { useSigner } from "wagmi";
 import abi from "../../lib/adapter-abi.json";
 import handleTxError from "../../lib/handleTxError";
+import Button from "../Button";
 
 const DeployWrapperButton = ({ setDeploymentStep }: any) => {
   const { data: signer } = useSigner();
   const { openConnectModal } = useConnectModal();
   const [deploying, setDeploying] = useState(false);
-
-  const className = `${deploying ? "bg-blue-500/50" : "bg-blue-500"} ${
-    !deploying && "hover:bg-blue-700"
-  } text-white font-bold py-2 px-4 rounded`;
 
   const deployContract = async () => {
     try {
@@ -49,9 +46,9 @@ const DeployWrapperButton = ({ setDeploymentStep }: any) => {
   };
 
   return (
-    <button onClick={handleClick} disabled={deploying} className={className}>
+    <Button onClick={handleClick} disabled={deploying}>
       deploy
-    </button>
+    </Button>
   );
 };
 

@@ -8,7 +8,7 @@ const Button = ({
     <button
       type={type}
       onClick={onClick}
-      className="bg-black text-white py-5 px-[80px] rounded-full hover:bg-opacity-80"
+      className="bg-black text-white py-5 px-[80px] rounded-full hover:bg-opacity-80 max-h-20"
       disabled={disabled}
     >
       {children}
