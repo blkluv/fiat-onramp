@@ -10,7 +10,9 @@ export default async function handler(req: any, res: any) {
 }
 
 const searchForContractOnChains = async(address: string) => {
-    const chains = [1, 137, 5, 80001]
+    // const mainnets = [1, 137] TODO: get API KEY FOR MAINNET
+    const testnets = [5, 80001]
+    const chains = [...testnets]
     const matches = []
     for(let i = 0; i < chains.length; i++) {
         const chainId = chains[i]

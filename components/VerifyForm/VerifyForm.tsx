@@ -22,7 +22,7 @@ const VerifyForm = ({ onSuccess }: any) => {
     } as AxiosRequestConfig);
     const { matches } = data;
     console.log("matches", matches);
-    onSuccess(matches || [null]);
+    onSuccess(matches || [null], address);
     return;
   };
 

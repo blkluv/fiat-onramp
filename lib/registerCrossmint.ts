@@ -3,9 +3,11 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 
 
-const registerCrossmint = async (address: string) => {
+const registerCrossmint = async (address: string, chainId: number, name: string) => {
+  console.log("name", name)
+  const chainName = chainId == 137 || chainId == 80001 ? "polygon": "ethereum"
     const body = {
-        "chain": "ethereum",
+        "chain": chainName,
         "contractType": "erc-721",
         "args": {
           "contractAddress": address,
@@ -15,7 +17,7 @@ const registerCrossmint = async (address: string) => {
           "mintFunctionName": "mint(uint256,address)"
         },
         "metadata": {
-          "title": "Test Create Collection API",
+          "title": name || "Test Create Collection API",
           "description": "Test Description",
           "imageUrl": "https://www.crossmint.com/_next/image?url=%2Fassets%2Fcrossmint%2Flogo.png&w=48&q=75",
           "social": {
@@ -36,10 +38,12 @@ const registerCrossmint = async (address: string) => {
             }
         } as AxiosRequestConfig);
           
-        console.log("response", response)
-        // const collectionId = data.collectionId;
-    } catch(e) {
-        console.error(e)
+        console.log("SUCCESS", response)
+        return response.data
+    } catch(e: any) {
+      console.log("FAILURE")
+
+        return e.response.data
     }
     
 }

@@ -1,13 +1,18 @@
-import axios, { AxiosRequestConfig } from "axios";
-import { useCallback, useState } from "react";
-import shortenAddress from "../../lib/shortenAddress";
-import DeployWrapperButton from "../DeployWrapperButton";
+import { useState } from "react";
 import ResultsForm from "../ResultsForm";
 import VerifyForm from "../VerifyForm";
 
-const DeployWrapperForm = ({ publicKey, setDeploymentStep }: any) => {
-  const [contractAddress, setContractAddress] = useState("");
-  const [matchingContracts, setMatchingContracts] = useState([]);
+const DeployWrapperForm = ({
+  setDeploymentStep,
+  matchingContracts,
+  setMatchingContracts,
+  contractAddress,
+  setContractAddress,
+}: any) => {
+  const onSuccess = (matches: any, address: string) => {
+    setMatchingContracts(matches);
+    setContractAddress(address);
+  };
 
   return (
     <main
@@ -20,26 +25,11 @@ const DeployWrapperForm = ({ publicKey, setDeploymentStep }: any) => {
             contracts={matchingContracts}
             address={contractAddress}
             reset={() => setMatchingContracts([])}
+            setDeploymentStep={setDeploymentStep}
           />
         ) : (
-          <VerifyForm onSuccess={setMatchingContracts} />
+          <VerifyForm onSuccess={onSuccess} />
         )}
-      </div>
-      <div className="min-h-screen grid md:grid-cols-2 grid-cols-1">
-        <div className="flex flex-wrap items-center">
-          <div className="space-y-8">
-            <h1>Project Title or Skeleton</h1>
-            <p className="w-2/3">Project Description</p>
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center">
-          <div className="space-y-8">
-            Public Key: {shortenAddress(publicKey as string)}
-            <p>Price: </p>
-          </div>
-        </div>
-
-        <DeployWrapperButton setDeploymentStep={setDeploymentStep} />
       </div>
     </main>
   );

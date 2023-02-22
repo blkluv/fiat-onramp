@@ -8,6 +8,9 @@ import { useNetwork } from "wagmi";
 
 const DeployPage: NextPage = () => {
   const [deploymentStep, setDeploymentStep] = useState(0);
+  const [matchingContracts, setMatchingContracts] = useState([]);
+  const [contractAddress, setContractAddress] = useState("");
+
   const { chain } = useNetwork();
 
   return (
@@ -20,7 +23,13 @@ const DeployPage: NextPage = () => {
           titleText="Deploying Credit Card Wrapper"
         />
       ) : (
-        <DeployWrapperForm setDeploymentStep={setDeploymentStep} />
+        <DeployWrapperForm
+          setDeploymentStep={setDeploymentStep}
+          matchingContracts={matchingContracts}
+          setMatchingContracts={setMatchingContracts}
+          contractAddress={contractAddress}
+          setContractAddress={setContractAddress}
+        />
       )}
       <Footer />
     </div>
