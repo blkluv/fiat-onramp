@@ -30,7 +30,6 @@ const CrossMintPage: NextPage = () => {
       // error
       console.error(ex);
     }
-    console.log("rersponse PRICING", response.data);
     setEthPrice(response?.data?.USD);
     return response;
   };
@@ -44,7 +43,8 @@ const CrossMintPage: NextPage = () => {
         },
       } as AxiosRequestConfig);
       console.log("API RESPONSE", data);
-      data.totalSupply = BigNumber.from(data?.totalSupply || 0);
+
+      data.totalSupply = BigNumber.from(data?.totalSupply);
       data.maxSupply = BigNumber.from(data?.maxSupply);
       data.available = data.maxSupply.sub(data.totalSupply);
       console.log("contract data", data);
