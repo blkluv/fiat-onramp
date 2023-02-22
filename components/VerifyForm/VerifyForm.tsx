@@ -17,7 +17,7 @@ const VerifyForm = ({ onSuccess }: any) => {
 
   const verify = async (address: string) => {
     console.log("verifying contract address", address);
-    const { data } = await axios.get("/api/getContractInfo", {
+    const { data } = await axios.get("/api/getAllContracts", {
       params: { contractAddress: address },
     } as AxiosRequestConfig);
     const { matches } = data;

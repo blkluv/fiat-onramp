@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import { allChains } from "wagmi";
 import shortenAddress from "../../lib/shortenAddress";
 import Button from "../Button";
-import DeployWrapperButton from "../DeployWrapperButton";
 
 const ResultsForm = ({ contracts, address, reset, setDeploymentStep }: any) => {
   const router = useRouter();
@@ -17,15 +16,12 @@ const ResultsForm = ({ contracts, address, reset, setDeploymentStep }: any) => {
           (chain) => contract.chainId === chain.id
         );
         return (
-          <DeployWrapperButton
-            setDeploymentStep={setDeploymentStep}
+          <Button
             key={contract?.name}
-            wrappedContractAddress={address}
-            chainId={myChain?.id}
-            name={contract?.name}
+            onClick={() => router.push(`/${myChain?.id}/${address}`)}
           >
             {contract?.name} - {myChain?.name}
-          </DeployWrapperButton>
+          </Button>
         );
       })}
       <Button onClick={reset}>try again</Button>
