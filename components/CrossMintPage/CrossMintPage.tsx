@@ -14,24 +14,14 @@ const CrossMintPage: NextPage = () => {
   const [contractInfo, setContractInfo] = useState({} as any);
   const [ethPrice, setEthPrice] = useState(0);
 
-  console.log("router.query", router.query);
-
-  // TOOD: lib
   const getEthPrice = async () => {
     let response;
     try {
-      response = await axios.get("/api/getEthPrice", {
-        headers: {
-          "X-CMC_PRO_API_KEY": "1b23d28e-e5eb-49be-8c69-cee5ebe86bb9",
-        },
-      });
-    } catch (ex) {
-      response = null;
-      // error
-      console.error(ex);
+      response = await axios.get("/api/getEthPrice");
+    } catch (e) {
+      console.error(e);
     }
     setEthPrice(response?.data?.USD);
-    return response;
   };
 
   useEffect(() => {
@@ -42,16 +32,11 @@ const CrossMintPage: NextPage = () => {
           chainId: chainId,
         },
       } as AxiosRequestConfig);
-      console.log("API RESPONSE", data);
 
       data.totalSupply = BigNumber.from(data?.totalSupply);
       data.maxSupply = BigNumber.from(data?.maxSupply);
       data.available = data.maxSupply.sub(data.totalSupply);
-      console.log("contract data", data);
-      console.log(
-        "contractInfo?.totalSupply?.toString?.()",
-        data.available.toString()
-      );
+
       setContractInfo(data);
     };
 
@@ -60,11 +45,9 @@ const CrossMintPage: NextPage = () => {
     getEthPrice();
   }, [contractAddress, chainId]);
 
-  console.log("contractInfo?.price", contractInfo?.tokenPrice);
   const price = contractInfo?.tokenPrice
     ? ethers.utils.formatEther(contractInfo?.tokenPrice).toString()
     : "0";
-  console.log("PRICE", price);
 
   return (
     <div>

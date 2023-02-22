@@ -4,7 +4,6 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 
 const registerCrossmint = async (address: string, chainId: number, name: string) => {
-  console.log("name", name)
   const chainName = chainId == 137 || chainId == 80001 ? "polygon": "ethereum"
     const body = {
         "chain": chainName,
@@ -38,12 +37,9 @@ const registerCrossmint = async (address: string, chainId: number, name: string)
             }
         } as AxiosRequestConfig);
           
-        console.log("SUCCESS", response)
         return response.data
     } catch(e: any) {
-      console.log("FAILURE")
-
-        return e.response.data
+      return e.response.data
     }
     
 }

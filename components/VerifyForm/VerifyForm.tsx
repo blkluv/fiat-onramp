@@ -9,19 +9,16 @@ const VerifyForm = ({ onSuccess }: any) => {
 
   const onClick = async () => {
     setLoading(true);
-    console.log(address);
     await verify(address);
     setLoading(false);
     return;
   };
 
   const verify = async (address: string) => {
-    console.log("verifying contract address", address);
     const { data } = await axios.get("/api/getAllContracts", {
       params: { contractAddress: address },
     } as AxiosRequestConfig);
     const { matches } = data;
-    console.log("matches", matches);
     onSuccess(matches || [null], address);
     return;
   };
