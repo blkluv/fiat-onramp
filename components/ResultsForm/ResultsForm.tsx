@@ -3,7 +3,7 @@ import { allChains } from "wagmi";
 import shortenAddress from "../../lib/shortenAddress";
 import Button from "../Button";
 
-const ResultsForm = ({ contracts, address, reset, setDeploymentStep }: any) => {
+const ResultsForm = ({ contracts, address, reset }: any) => {
   const router = useRouter();
 
   return (

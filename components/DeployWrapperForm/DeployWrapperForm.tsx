@@ -3,7 +3,6 @@ import ResultsForm from "../ResultsForm";
 import VerifyForm from "../VerifyForm";
 
 const DeployWrapperForm = ({
-  setDeploymentStep,
   matchingContracts,
   setMatchingContracts,
   contractAddress,
@@ -25,7 +24,6 @@ const DeployWrapperForm = ({
             contracts={matchingContracts}
             address={contractAddress}
             reset={() => setMatchingContracts([])}
-            setDeploymentStep={setDeploymentStep}
           />
         ) : (
           <VerifyForm onSuccess={onSuccess} />
