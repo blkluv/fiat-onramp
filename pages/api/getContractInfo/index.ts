@@ -2,30 +2,27 @@ import { DecentSDK, edition } from "@decent.xyz/sdk"
 import getDefaultProvider from "../../../lib/getDefaultProvider";
 
 export default async function handler(req: any, res: any) {
-    const {contractAddress} = req.query
+    const {contractAddress, chainId} = req.query
 
-    const matches = await searchForContractOnChains(contractAddress)
-    
-    res.status(200).json({  contractAddress, matches })
+    console.log("req", req.query)
+    console.log("contractAddress", contractAddress)
+    console.log("chainId", chainId)
+    const response = await getContract(contractAddress, chainId)
+    console.log("response", response)
+    res.status(200).json(response)
 }
 
-const searchForContractOnChains = async(address: string) => {
-    // const mainnets = [1, 137] TODO: get API KEY FOR MAINNET
-    const testnets = [5, 80001]
-    const chains = [...testnets]
-    const matches = []
-    for(let i = 0; i < chains.length; i++) {
-        const chainId = chains[i]
-        const provider = getDefaultProvider(chainId);
-        const sdk = new DecentSDK(chains[i], provider);
-        const contract = await edition.getContract(sdk, address)
-        try {
-            const name = await contract.name()
-            console.log(chainId, name)
-            matches.push({name, chainId})
-        } catch(e) {
-            console.log("NO CONTRACT FOUND ON CHAIN", chainId)
-        }
+const getContract = async(address: string, chainId: string) => {
+    const provider = getDefaultProvider(Number(chainId));
+    const sdk = new DecentSDK(Number(chainId), provider);
+    const contract = await edition.getContract(sdk, address)
+    try {
+        const name = await contract.name()
+        const totalSupply = await contract.totalSupply()
+        const maxSupply = await contract.MAX_TOKENS()
+        const tokenPrice = await contract.tokenPrice()
+        return {name, totalSupply: totalSupply.toString(), maxSupply: maxSupply.toString(), tokenPrice: tokenPrice.toString()}
+    } catch(e) {
+        console.log("NO CONTRACT FOUND ON CHAIN", chainId)
     }
-    return matches
 }
