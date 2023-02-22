@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import SeoHead from "../SeoHead";
 import Footer from "../Footer";
-import MintingForm from "../MintingForm";
+import DeployWrapperForm from "../DeployWrapperForm";
 import { useState } from "react";
 import TxScreen from "../TxScreen";
 import { useNetwork } from "wagmi";
@@ -20,7 +20,7 @@ const DeployPage: NextPage = () => {
           titleText="Deploying Credit Card Wrapper"
         />
       ) : (
-        <MintingForm setDeploymentStep={setDeploymentStep} />
+        <DeployWrapperForm setDeploymentStep={setDeploymentStep} />
       )}
       <Footer />
     </div>
