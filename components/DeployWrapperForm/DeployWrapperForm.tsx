@@ -1,6 +1,6 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import axios, { AxiosRequestConfig } from "axios";
+import { useState } from "react";
 import shortenAddress from "../../lib/shortenAddress";
 import Button from "../Button";
 import DeployWrapperButton from "../DeployWrapperButton";
@@ -8,17 +8,18 @@ import Spinner from "../Spinner";
 
 const DeployWrapperForm = ({ publicKey, setDeploymentStep }: any) => {
   const [contractAddress, setContractAddress] = useState("");
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const init = async () => {
-      const { data } = await axios.get("/api/getContractInfo");
-      console.log("data", data);
-    };
-    init();
-  }, []);
-
-  const onClick = () => {};
+  const onClick = async (e: any) => {
+    setLoading(true);
+    e.preventDefault();
+    console.log("contract address", contractAddress);
+    const { data } = await axios.get("/api/getContractInfo", {
+      params: { contractAddress },
+    } as AxiosRequestConfig);
+    console.log("data", data);
+    setLoading(false);
+  };
 
   const handleChange = (e: any) => {
     setContractAddress(e.target.value);
