@@ -2,12 +2,22 @@ import { DecentSDK, edition } from "@decent.xyz/sdk"
 import getDefaultProvider from "../../../lib/getDefaultProvider";
 
 export default async function handler(req: any, res: any) {
-    const provider = getDefaultProvider(Number(process.env.NEXT_PUBLIC_CHAIN_ID));
-    const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID);
-    const sdk = new DecentSDK(chainId, provider);
-    const contract = await edition.getContract(sdk, process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string)
-    const supplyMax = await contract.maxTokenPurchase();
-    const supply = await contract.totalSupply();
-    const name = await contract.name();
-    res.status(200).json({ name, contract: contract.address, supplyMax, supply  })
+    const {contractAddress, chainId} = req.query
+    const response = await getContract(contractAddress, chainId)
+    res.status(200).json(response)
+}
+
+const getContract = async(address: string, chainId: string) => {
+    const provider = getDefaultProvider(Number(chainId));
+    const sdk = new DecentSDK(Number(chainId), provider);
+    const contract = await edition.getContract(sdk, address)
+    try {
+        const name = await contract.name()
+        const totalSupply = await contract.totalSupply()
+        const maxSupply = await contract.MAX_TOKENS()
+        const tokenPrice = await contract.tokenPrice()
+        return {name, totalSupply: totalSupply.toString(), maxSupply: maxSupply.toString(), tokenPrice: tokenPrice.toString()}
+    } catch(e) {
+        console.error(e)
+    }
 }
